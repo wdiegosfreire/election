@@ -1,0 +1,9 @@
+insert into sub_subject (sub_identity, sub_title, sub_description, sub_end_date) values (1, 'Ainda assim, existem dúvidas a respeito de como a valorização de fatores subjetivos afeta positivamente a correta previsão dos índices pretendidos.', null, null);
+insert into sub_subject (sub_identity, sub_title, sub_description, sub_end_date) values (2, 'É claro que a adoção de políticas descentralizadoras ainda não demonstrou convincentemente que vai participar na mudança das formas de ação.', null, null);
+insert into sub_subject (sub_identity, sub_title, sub_description, sub_end_date) values (3, 'Assim mesmo, a execução dos pontos do programa exige a precisão e a definição da gestão inovadora da qual fazemos parte.', null, null);
+
+insert into mem_member(mem_cpf, mem_name) values('11111111111', 'Bruce Dickinson');
+insert into mem_member(mem_cpf, mem_name) values('65849532154', 'Freddie Mercury');
+insert into mem_member(mem_cpf, mem_name) values('77448596325', 'James Hetfield');
+insert into mem_member(mem_cpf, mem_name) values('85241236541', 'Rob Halford');
+insert into mem_member(mem_cpf, mem_name) values('96385274112', 'Ozzy Osbourne');

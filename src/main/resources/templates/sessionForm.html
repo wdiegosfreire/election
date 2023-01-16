@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Benvindo!!!</title>
+	</head>
+
+	<body>
+		<form action="#" th:action="@{/session/executeRegistration}" th:object="${session}" method="POST">
+			<h3>Cadastrar Nova Sessão de Votação</h3>
+
+			<div>
+				<div style="font-weight: bold;">Código</div>
+				<div><input th:field="*{identity}" style="width: 98%;" type="text" readonly="readonly" tabindex="-1"></div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">Pauta</div>
+				<div>
+					<select th:field="*{subject.identity}" th:required="required" style="width: 99%;">
+						<option value="">Selecione uma Pauta</option>
+						<option th:each="subject:${subjectList}" th:value="${subject.identity}" th:text="${subject.title}"></option>
+					</select>
+				</div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">Data Inicial</div>
+				<div><input th:field="*{startDate}" th:required="required" style="width: 98%;" type="date"></div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">Data Final</div>
+				<div><input th:field="*{endDate}" th:required="required" style="width: 98%;" type="date"></div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">Duração</div>
+				<div><input th:field="*{duration}" th:required="required" style="width: 98%;" type="number"></div>
+			</div><br />
+
+			<input type="submit" value="Confirmar" />
+			<a th:href="@{/session/accessModule}"><input type="button" value="Voltar" /></a>
+		</form>
+	</body>
+
+</html>

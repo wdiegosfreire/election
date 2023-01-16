@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Welcome Page</title>
+	</head>
+
+	<body>
+		<form action="#" th:action="@{/subject/executeRegistration}" th:object="${subject}" method="POST">
+			<h3>Cadastrar Nova Pauta</h3>
+
+			<div>
+				<div style="font-weight: bold;">Identity</div>
+				<div><input th:field="*{identity}" style="width: 98%;" type="text" readonly="readonly" tabindex="-1"></div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">Title</div>
+				<div><input th:field="*{title}" style="width: 98%;" type="text"></div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">Description</div>
+				<div><textarea th:field="*{description}" style="width: 98%;"></textarea></div>
+			</div><br />
+
+			<input type="submit" value="Confirmar" />
+			<a th:href="@{/subject/accessModule}"><input type="button" value="Voltar" /></a>
+		</form>
+	</body>
+
+</html>

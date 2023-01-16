@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Cadastrar Novo Voto</title>
+	</head>
+
+	<body>
+		<form action="#" th:action="@{/vote/executeRegistration}" th:object="${vote}" method="POST">
+			<h3>Cadastrar Novo Voto</h3>
+
+			<input th:field="*{session.identity}" style="width: 98%;" type="hidden" readonly="readonly" tabindex="-1">
+
+			<div>
+				<div style="font-weight: bold;">Identity</div>
+				<div><input th:field="*{identity}" style="width: 98%;" type="text" readonly="readonly" tabindex="-1"></div>
+			</div><br />
+
+			<div>
+				<div style="font-weight: bold;">Pauta</div>
+				<div><input th:field="*{session.subject.title}" style="width: 98%;" type="text" readonly="readonly" tabindex="-1"></div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">Descrição</div>
+				<div>
+					<input th:field="*{session.subject.Description}" style="width: 98%;" type="text" readonly="readonly" tabindex="-1">
+				</div>
+			</div><br />
+
+			<div>
+				<div style="font-weight: bold;">Associado</div>
+				<div>
+					<select th:field="*{member.identity}" th:required="required" style="width: 99%;">
+						<option value="">Selecione um Associado</option>
+						<option th:each="member:${memberList}" th:value="${member.identity}" th:text="${member.name}"></option>
+					</select>
+				</div>
+			</div><br />
+
+			<div>
+				<div style="font-weight: bold;">Voto</div>
+				<select th:field="*{option}" th:required="required" style="width: 99%;">
+					<option value="">Selecione um Voto</option>
+					<option value="true">Sim</option>
+					<option value="false">Não</option>
+				</select>
+			</div><br>
+
+			<input type="submit" value="Confirmar" />
+			<a th:href="@{/session/accessModule}"><input type="button" value="Voltar" /></a>
+		</form>
+	</body>
+
+</html>

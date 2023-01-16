@@ -1,0 +1,116 @@
+package br.com.compassuol.election.services.user;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import br.com.compassuol.common.exceptions.BaseException;
+import br.com.compassuol.election.configs.TestConfig;
+import br.com.compassuol.election.entities.UserEntity;
+import br.com.compassuol.election.exceptions.EmailAlreadyRegisteredException;
+import br.com.compassuol.election.exceptions.RequiredFieldNotFoundException;
+import br.com.compassuol.election.repositories.UserRepository;
+import br.com.compassuol.election.services.user.UserExecuteRegistrationService;
+
+@DisplayName("UserExecuteRegistrationServiceTest")
+public class UserExecuteRegistrationServiceTest extends TestConfig {
+	@Autowired private UserExecuteRegistrationService userExecuteRegistrationService;
+
+	@MockBean private UserRepository userRepository;
+
+	@Test
+	@DisplayName("Must execute registration correctly")
+	public void mustExecuteRegistrationCorrectly() throws BaseException {
+		UserEntity userMock = Mockito.mock(UserEntity.class);
+		Mockito.when(userMock.getIdentity()).thenReturn(1L);
+		Mockito.when(userMock.getName()).thenReturn("Fake Name");
+		Mockito.when(userMock.getPassword()).thenReturn("fake.password");
+		Mockito.when(userMock.getEmail()).thenReturn("fake.email@email.com");
+
+		Mockito.when(this.userRepository.findByEmail(ArgumentMatchers.eq(userMock.getEmail()))).thenReturn(Optional.empty());
+		this.userExecuteRegistrationService.setEntity(userMock);
+
+		this.userExecuteRegistrationService.execute();
+	}
+
+	@Test
+	@DisplayName("Must execute registration and throw RequiredFieldNotFoundException with empty email")
+	public void mustExecuteRegistrationAndThrowRequiredFieldNotFoundExceptionWithEmptyEmail() {
+		UserEntity userMock = Mockito.mock(UserEntity.class);
+		Mockito.when(userMock.getIdentity()).thenReturn(1L);
+		Mockito.when(userMock.getName()).thenReturn("Fake Name");
+		Mockito.when(userMock.getPassword()).thenReturn("fake.password");
+		
+		Mockito.when(this.userRepository.findByEmail(ArgumentMatchers.eq(userMock.getEmail()))).thenReturn(Optional.empty());
+		this.userExecuteRegistrationService.setEntity(userMock);
+
+		RequiredFieldNotFoundException requiredFieldNotFoundException = Assertions.assertThrows(
+			RequiredFieldNotFoundException.class,
+			() -> this.userExecuteRegistrationService.execute()
+		);
+
+		Assertions.assertTrue(requiredFieldNotFoundException.getMessage().contains("Please, enter email"));
+	}
+
+	@Test
+	@DisplayName("Must execute registration and throw RequiredFieldNotFoundException with empty password")
+	public void mustExecuteRegistrationAndThrowRequiredFieldNotFoundExceptionWithEmptyPassword() {
+		UserEntity userMock = Mockito.mock(UserEntity.class);
+		Mockito.when(userMock.getIdentity()).thenReturn(1L);
+		Mockito.when(userMock.getName()).thenReturn("Fake Name");
+		Mockito.when(userMock.getEmail()).thenReturn("fake.email@email.com");
+		
+		Mockito.when(this.userRepository.findByEmail(ArgumentMatchers.eq(userMock.getEmail()))).thenReturn(Optional.empty());
+		this.userExecuteRegistrationService.setEntity(userMock);
+		
+		RequiredFieldNotFoundException requiredFieldNotFoundException = Assertions.assertThrows(
+			RequiredFieldNotFoundException.class,
+			() -> this.userExecuteRegistrationService.execute()
+		);
+
+		Assertions.assertTrue(requiredFieldNotFoundException.getMessage().contains("Please, enter password"));
+	}
+
+	@Test
+	@DisplayName("Must execute registration and throw RequiredFieldNotFoundException with empty name")
+	public void mustExecuteRegistrationAndThrowRequiredFieldNotFoundExceptionWithEmptyName() {
+		UserEntity userMock = Mockito.mock(UserEntity.class);
+		Mockito.when(userMock.getIdentity()).thenReturn(1L);
+		Mockito.when(userMock.getPassword()).thenReturn("fake.password");
+		Mockito.when(userMock.getEmail()).thenReturn("fake.email@email.com");
+		
+		Mockito.when(this.userRepository.findByEmail(ArgumentMatchers.eq(userMock.getEmail()))).thenReturn(Optional.empty());
+		this.userExecuteRegistrationService.setEntity(userMock);
+		
+		RequiredFieldNotFoundException requiredFieldNotFoundException = Assertions.assertThrows(
+			RequiredFieldNotFoundException.class,
+			() -> this.userExecuteRegistrationService.execute()
+		);
+
+		Assertions.assertTrue(requiredFieldNotFoundException.getMessage().contains("Please, enter name"));
+	}
+
+	@Test
+	@DisplayName("Must execute registration and throw EmailAlreadyRegisteredException with empty name")
+	public void mustExecuteRegistrationAndThrowEmailAlreadyRegisteredException() {
+		UserEntity userMock = Mockito.mock(UserEntity.class);
+		Mockito.when(userMock.getIdentity()).thenReturn(1L);
+		Mockito.when(userMock.getName()).thenReturn("Fake Name");
+		Mockito.when(userMock.getPassword()).thenReturn("fake.password");
+		Mockito.when(userMock.getEmail()).thenReturn("fake.email@email.com");
+		
+		Mockito.when(this.userRepository.findByEmail(ArgumentMatchers.eq(userMock.getEmail()))).thenReturn(Optional.of(userMock));
+		this.userExecuteRegistrationService.setEntity(userMock);
+		
+		Assertions.assertThrows(
+			EmailAlreadyRegisteredException.class,
+			() -> this.userExecuteRegistrationService.execute()
+		);
+	}
+}

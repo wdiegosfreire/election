@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Welcome Page</title>
+	</head>
+
+	<body>
+		<h1>Membros Associados</h1>
+
+		<a th:href="@{/member/accessRegistration}">Cadastrar Novo Membro</a>
+		<br>
+
+		<h3>Lista de Membros Associados</h3>
+		<table border="1" style="width: 100%;">
+			<tr>
+				<td style="width: 100px;"><b>Identity</b></td>
+				<td><b>Nome</b></td>
+				<td><b>CPF</b></td>
+				<td style="width: 100px;"></td>
+				<td style="width: 100px;"></td>
+			</tr>
+			<tr th:each="member:${memberList}">
+				<td th:text="${member.identity}"></td>
+				<td th:text="${member.name}"></td>
+				<td th:text="${member.cpf}"></td>
+				<td style="text-align: center;"><a th:href="@{/member/accessEdition/{id}(id=${member.identity})}">Update</a></td>
+				<td style="text-align: center;"><a th:href="@{/member/executeExclusion/{id}(id=${member.identity})}">Delete</a></td>
+			</tr>
+		</table>
+
+		<br />
+		<a th:href="@{/index}">Index</a>
+	</body>
+
+</html>

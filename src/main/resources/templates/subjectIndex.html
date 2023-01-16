@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Pautas</title>
+	</head>
+
+	<body>
+		<h1>Pautas</h1>
+
+		<a th:href="@{/subject/accessRegistration}">Cadastrar Nova Pauta</a>
+		<br>
+
+		<h3>Lista de Pautas Cadastradas</h3>
+		<table border="1" style="width: 100%;">
+			<tr>
+				<td style="width: 100px;"><b>Código</b></td>
+				<td><b>Título</b></td>
+				<td><b>Descrição</b></td>
+				<td style="width: 100px;"></td>
+				<td style="width: 100px;"></td>
+			</tr>
+			<tr th:each="subject:${subjectList}">
+				<td th:text="${subject.identity}"></td>
+				<td th:text="${subject.title}"></td>
+				<td th:text="${subject.description}"></td>
+				<td style="text-align: center;"><a th:href="@{/subject/accessEdition/{id}(id=${subject.identity})}">Atualizar</a></td>
+				<td style="text-align: center;"><a th:href="@{/subject/executeExclusion/{id}(id=${subject.identity})}">Excluir</a></td>
+			</tr>
+		</table>
+
+		<br />
+		<a th:href="@{/index}">Index</a>
+	</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Welcome Page</title>
+	</head>
+
+	<body>
+		<form action="#" th:action="@{/member/executeRegistration}" th:object="${member}" method="POST">
+			<h3>Cadastrar Novo Membro</h3>
+
+			<div>
+				<div style="font-weight: bold;">Identity</div>
+				<div><input th:field="*{identity}" style="width: 98%;" type="text" readonly="readonly" tabindex="-1"></div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">Nome</div>
+				<div><input th:field="*{name}" th:required="required" style="width: 98%;" type="text"></div>
+			</div><br />
+			<div>
+				<div style="font-weight: bold;">CPF</div>
+				<div><input th:field="*{cpf}" th:required="required" style="width: 98%;" type="text" th:maxlength="11"></div>
+			</div><br />
+
+			<input type="submit" value="Confirmar" />
+			<a th:href="@{/member/accessModule}"><input type="button" value="Voltar" /></a>
+		</form>
+	</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Benvindo!!!</title>
+	</head>
+
+	<body>
+		<h1>Sessões de Votação</h1>
+
+		<a th:href="@{/session/accessRegistration}">Cadastrar Nova Sessão de Votação</a>
+		<br>
+
+		<h3>Lista de Sessões de Votação Cadastradas</h3>		
+		<table border="1" style="width: 100%;">
+			<tr>
+				<td style="width: 70px;"><b>Identity</b></td>
+				<td><b>Pauta</b></td>
+				<td><b>Descrição</b></td>
+				<td><b>Data Inicial</b></td>
+				<td><b>Data Final</b></td>
+				<td><b>Duração (min)</b></td>
+				<td><b>Votos</b></td>
+				<td style="width: 60px;"></td>
+				<td style="width: 70px;"></td>
+				<td style="width: 70px;"></td>
+			</tr>
+			<tr th:each="sessionEntity:${sessionList}">
+				<td th:text="${sessionEntity.identity}"></td>
+				<td th:text="${sessionEntity.subject.title}"></td>
+				<td th:text="${sessionEntity.subject.description}"></td>
+				<td th:text="${sessionEntity.startDate}"></td>
+				<td th:text="${sessionEntity.endDate}"></td>
+				<td th:text="${sessionEntity.duration}"></td>
+				<td>
+					<div th:each="vote:${sessionEntity.voteList}">
+						<span th:text="${vote.member.name}"></span>: <span th:text="${vote.option == true} ? 'SIM' : 'NÃO'"></span>
+						<hr>
+					</div>
+				</td>
+				<td style="text-align: center;"><a th:href="@{/vote/accessRegistration/{id}(id=${sessionEntity.identity})}">Votar</a></td>
+				<td style="text-align: center;"><a th:href="@{/session/accessEdition/{id}(id=${sessionEntity.identity})}">Atualizar</a></td>
+				<td style="text-align: center;"><a th:href="@{/session/executeExclusion/{id}(id=${sessionEntity.identity})}">Excluir</a></td>
+			</tr>
+		</table>
+
+		<br />
+		<a th:href="@{/index}">Index</a>
+	</body>
+
+</html>
