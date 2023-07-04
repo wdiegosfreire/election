@@ -9,7 +9,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.compassuol</groupId>
-	<artifactId>election</artifactId>
+	<artifactId>election TESTE</artifactId>
 	<version>2022-04-10 1850</version>
 	<packaging>war</packaging>
 	<name>election</name>
