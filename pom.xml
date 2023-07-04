@@ -13,7 +13,7 @@
 	<version>2022-04-10 1850</version>
 	<packaging>war</packaging>
 	<name>election</name>
-	<description>Spring Boot project Compass UOL Test application, module election</description>
+	<description>Spring Boot project Compass UOL Test application, module election TEST</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
